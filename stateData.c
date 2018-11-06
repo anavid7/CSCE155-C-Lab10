@@ -79,7 +79,20 @@ int main(int argc, char **argv) {
 }
 
 void toXMLFile(char **states, int *populations, int numStates) {
-  // TODO: you need to implement this
+
+  FILE *f = fopen("stateData.xml","w");
+
+  int i;
+  fprintf(f, "<STATES>\n");
+  for(i=0; i<numStates; i++) {
+    rtrim(states[i]);
+    fprintf(f, "\t<STATE>\n");
+    fprintf(f, "\t\t<NAME>%s</NAME>\n", states[i]);
+    fprintf(f, "\t\t<POPULATION>%d</POPULATION>\n", populations[i]);
+    fprintf(f, "\t</STATE>\n");
+  }
+  fprintf(f, "<STATES>");
+fclose(f);
 }
 
 void rtrim(char *str) {

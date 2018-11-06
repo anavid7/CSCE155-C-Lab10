@@ -33,9 +33,20 @@ int main(int argc, char **argv) {
     teams[i] = (char *)malloc(sizeof(char) * maxSize);
   }
 
-  // TODO: open the file, read it line by line, tokenize it to get the
-  //      team name, wins, and losses, and store the results into
-  //      teams[] and winPercentagesp[]
+  FILE *data = fopen(filePath, "r");
+  i=0;
+  while (fgets(tempBuffer, maxSize, data) != NULL) {
+    char* dataPoint = strtok(tempBuffer, " ");
+    strcpy(teams[i], dataPoint);
+    char* wins = strtok(NULL, " ");
+    char* loses = strtok(NULL, " ");
+    double winNum = atof(wins);
+    double lossNum = atof(loses);
+    winPercentages[i] = winNum / (winNum + lossNum);
+    i++;
+  }
+
+  fclose(data);
 
   // sort them
   sortMLB(teams, winPercentages, numTeams);
